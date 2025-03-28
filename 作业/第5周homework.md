@@ -3,6 +3,7 @@
 ## 题目一（2分）
 
 请问下面的SQL语句是否合法？用实验验证你的想法。你从实验结果能得到什么结论？
+
 1.
 ```sql
 SELECT dept_name, min(salary)
@@ -48,6 +49,7 @@ datagrip验证的输出：
 结论：
 HAVING子句用于过滤分组后的结果，所以它只能引用聚合函数或者在GROUP BY中的列。而这里的name字段如果不在GROUP BY里，也不是聚合函数的结果
 ，此时在HAVING中使用name会导致错误，因为每个分组可能有多个不同的name值，无法确定用哪一个。
+
 将name改为dept_name则可以正常运行。
 
 3.
@@ -76,19 +78,49 @@ HAVING AVG(salary) > 20000;
 ## 题目二（3分+3分+2分）
 
 1. 找到工资最高员工的名字，假设工资最高的员工只有一位（至少两种写法）。
+```
+select name
+from instructor
+where salary=(select max(salary) from instructor)
+```
+```
+SELECT name
+FROM instructor
+ORDER BY salary DESC
+LIMIT 1;
+```
+
+2. 找到工资最高员工的名字，假设工资最高的员工有多位（试试多种写法）。
+```
+SELECT name
+FROM instructor
+WHERE salary IN (
+    SELECT MAX(salary)
+    FROM instructor
+);
+```
+```
+SELECT name
+FROM instructor
+WHERE salary >= ALL (SELECT salary FROM instructor);
+```
 
 
-
-3. 找到工资最高员工的名字，假设工资最高的员工有多位（试试多种写法）。
-
-4. 解释下面四句。
+3. 解释下面四句。
 
 ```sql
 SELECT 1 IN (1);
-
+```
+检查1是否在列表(1)里。1在列表中，所以结果为True，即返回true
+```
 SELECT 1 = (1);
-
+```
+这里比较1是否等于括号中的(1)。括号在这里不影响值，所以实际上是1=1，结果为True。
+```
 SELECT (1, 2) = (1, 2);
-
+```
+这里比较两个元组是否相等，明显两者相等，运行结果为true
+```
 SELECT (1) IN (1, 2);
 ```
+这里检查1是否在列表(1,2)中，结果仍然为true。

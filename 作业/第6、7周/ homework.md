@@ -9,20 +9,25 @@
 
 实现步骤和代码：
 
+利用python生成txt符合格式的文件，相关代码已给出在此文件目录。
+
 1.登录psql，切换到目标数据库，我切入的是新建的homework6数据库，代码如下：
 ```
 \c homework6
 ```
-2.导入（注意文件路径斜杠为‘/’）
+2.创建表
+```
+CREATE TABLE product (product_no INTEGER PRIMARY KEY,name VARCHAR(100) NOT NULL,price NUMERIC(10,2));
+```
+3.导入（注意文件路径斜杠为‘/’）
 ```
 \copy product(product_no,name,price) FROM 'C:/Users/21310/OneDrive/Desktop/大三下作业/数据库原理/product_data.txt'
 ```
-3.导出
+4.导出
 ```
 -- 导出为 CSV 文件
 \copy product TO 'C:/Users/21310/OneDrive/Desktop/大三下作业/数据库原理/product_export.csv' WITH CSV HEADER;
 ```
-
 
 ## 题目二（6分）
 

@@ -1,12 +1,10 @@
-# 本周作业（第5次作业）
-
-考虑关系模式`product(product_no, name, price)`，完成下面的题目：
+关系模式`product(product_no, name, price)`
 
 ## 题目一（4分）
 
 在数据库中创建该关系，并自建上面关系的txt数据文件：
 
-1. 使用`COPY`命令导入数据库（PostgreSQL）；或使用`LOAD DATA`命令导入数据库（MySQL）。
+1. 使用`COPY`命令导入数据库（PostgreSQL）
 2. 将该关系导出为任意文件（如SQL、Txt、CSV、JSON等）。
 
 ## 题目二（6分）
@@ -35,6 +33,3 @@ FROM generate_series(1, 100000);
 
 比较`DELETE`和`TRUNCATE`的性能差异。
 
-### 针对MySQL
-
-参考`generate_data.py`生成数据，在MySQL比较`LOAD DATA`和[SELECT INTO](https://dev.mysql.com/doc/refman/8.0/en/select-into.html)的性能差异。
